@@ -1,21 +1,35 @@
 import { useState } from "react";
 import CustomField from "./CustomField";
 import DataSourceInput from "./DataSourceInput";
+import { useNavigate } from "react-router-dom"; // ✅ Add this if using React Router
 
 function CustomisationForm({ onSubmit }) {
-  const [formData, setFormData] = useState({
-    aiName: "",
-    role: "",
-    level: "",
-    personality: "",
-    tone: "",
-    structure: "",
-    format: "",
-    dataSources: [],
+  const navigate = useNavigate(); // ✅ Use this if navigation is needed
+
+  const [formData, setFormData] = useState(() => {
+    const savedData = localStorage.getItem("customisationFormData");
+    return savedData ? JSON.parse(savedData) : {
+      aiName: "",
+      role: "",
+      level: "",
+      personality: "",
+      tone: "",
+      structure: "",
+      format: "",
+      dataSources: [],
+    };
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const updatedData = { ...formData, [e.target.name]: e.target.value };
+    setFormData(updatedData);
+    localStorage.setItem("customisationFormData", JSON.stringify(updatedData)); 
+  };
+
+  const handleDataSourcesChange = (sources) => {
+    const updatedData = { ...formData, dataSources: sources };
+    setFormData(updatedData);
+    localStorage.setItem("customisationFormData", JSON.stringify(updatedData)); 
   };
 
   const handleFormSubmit = (e) => {
@@ -25,9 +39,13 @@ function CustomisationForm({ onSubmit }) {
     alert("AI settings saved!");
   };
 
+  const handleNext = () => {
+    handleFormSubmit(new Event("submit")); // ✅ Save form data before moving to the next step
+    navigate("/uicustomisation"); // ✅ Change "/next-step" to the actual next page route
+  };
+
   return (
     <form onSubmit={handleFormSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-      {/* 🔹 AI Name */}
       <CustomField
         label="AI Name"
         name="aiName"
@@ -38,7 +56,6 @@ function CustomisationForm({ onSubmit }) {
         tooltipText="Give your AI a unique name."
       />
 
-      {/* 🔹 AI Role */}
       <CustomField
         label="AI Role"
         name="role"
@@ -49,7 +66,6 @@ function CustomisationForm({ onSubmit }) {
         tooltipText="Define the AI's role (e.g., Financial Advisor, Market Analyst)."
       />
 
-      {/* 🔹 AI Level */}
       <CustomField
         label="AI Level"
         name="level"
@@ -60,7 +76,6 @@ function CustomisationForm({ onSubmit }) {
         tooltipText="Set the AI's expertise level."
       />
 
-      {/* 🔹 AI Personality */}
       <CustomField
         label="Personality"
         name="personality"
@@ -71,7 +86,6 @@ function CustomisationForm({ onSubmit }) {
         tooltipText="Choose the AI's personality style."
       />
 
-      {/* 🔹 AI Tone */}
       <CustomField
         label="Tone"
         name="tone"
@@ -82,7 +96,6 @@ function CustomisationForm({ onSubmit }) {
         tooltipText="Set the communication style."
       />
 
-      {/* 🔹 Response Structure */}
       <CustomField
         label="Response Structure"
         name="structure"
@@ -93,7 +106,6 @@ function CustomisationForm({ onSubmit }) {
         tooltipText="Describe how AI responses should be structured."
       />
 
-      {/* 🔹 Response Format */}
       <CustomField
         label="Response Format"
         name="format"
@@ -104,15 +116,16 @@ function CustomisationForm({ onSubmit }) {
         tooltipText="Choose how responses are formatted."
       />
 
-      {/* 🔹 Data Source Input Component */}
       <DataSourceInput
         dataSources={formData.dataSources}
-        setDataSources={(sources) => setFormData({ ...formData, dataSources: sources })}
+        setDataSources={handleDataSourcesChange} // ✅ Fix: Save dataSources correctly
       />
 
-      {/* Submit Button */}
       <button type="submit" className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700">
         Save AI Settings
+      </button>
+      <button type="button" onClick={handleNext} className="w-full py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 mt-3">
+        Next
       </button>
     </form>
   );
