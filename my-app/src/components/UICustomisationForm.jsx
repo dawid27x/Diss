@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { HexColorPicker } from "react-colorful";
 import { useNavigate } from "react-router-dom";
+import CustomField from "./CustomField";
+import FileUploadButton from "./FileUploadButton";
+import ColorPickerButton from "./ColorPickerButton";
 
 const fonts = ["Arial", "Courier New", "Georgia", "Times New Roman", "Verdana"];
+const messageStyles = ["Bubble", "Straight"];
 
-
-// eslint-disable-next-line react/prop-types
 const UICustomisationForm = ({ onSave }) => {
   const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ const UICustomisationForm = ({ onSave }) => {
           backgroundColor: "#ffffff",
           textColor: "#000000",
           font: "Arial",
-          messageStyle: "bubble",
+          messageStyle: "Bubble",
           logo: null,
         };
   });
@@ -26,17 +27,6 @@ const UICustomisationForm = ({ onSave }) => {
     const updatedData = { ...formData, [key]: value };
     setFormData(updatedData);
     localStorage.setItem("uiCustomisationSettings", JSON.stringify(updatedData));
-  };
-
-  const handleLogoUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        handleChange("logo", reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   const handleFormSubmit = (e) => {
@@ -52,74 +42,46 @@ const UICustomisationForm = ({ onSave }) => {
 
   return (
     <form onSubmit={handleFormSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+      <h2 className="text-2xl font-bold mb-4">Customise Your UI</h2>
 
-      {/* Background Color Picker */}
-      <div className="mb-4">
-        <label className="block text-lg font-semibold">Background Color</label>
-        <HexColorPicker
-          color={formData.backgroundColor}
-          onChange={(color) => handleChange("backgroundColor", color)}
-          className="mt-2"
-        />
-      </div>
+      {/* Background Color Picker (New Button) */}
+      <ColorPickerButton
+        label="Background Color"
+        color={formData.backgroundColor}
+        onChange={(color) => handleChange("backgroundColor", color)}
+      />
 
-      {/* Text Color Picker */}
-      <div className="mb-4">
-        <label className="block text-lg font-semibold">Text Color</label>
-        <HexColorPicker
-          color={formData.textColor}
-          onChange={(color) => handleChange("textColor", color)}
-          className="mt-2"
-        />
-      </div>
+      {/* Text Color Picker (New Button) */}
+      <ColorPickerButton
+        label="Text Color"
+        color={formData.textColor}
+        onChange={(color) => handleChange("textColor", color)}
+      />
 
-      {/* Font Selection */}
-      <div className="mb-4">
-        <label className="block text-lg font-semibold">Font</label>
-        <select
-          value={formData.font}
-          onChange={(e) => handleChange("font", e.target.value)}
-          className="w-full p-2 border rounded"
-        >
-          {fonts.map((f) => (
-            <option key={f} value={f}>
-              {f}
-            </option>
-          ))}
-        </select>
-      </div>
+      {/* Font Selection (Using CustomField) */}
+      <CustomField
+        label="Font"
+        name="font"
+        type="select"
+        value={formData.font}
+        onChange={(e) => handleChange("font", e.target.value)}
+        options={fonts}
+        tooltipText="Choose the font for your chatbot text."
+      />
 
-      {/* Message Style */}
-      <div className="mb-4">
-        <label className="block text-lg font-semibold">Message Style</label>
-        <div className="flex space-x-4">
-          <button
-            type="button"
-            className={`px-4 py-2 rounded ${
-              formData.messageStyle === "bubble" ? "bg-blue-600 text-white" : "bg-gray-200"
-            }`}
-            onClick={() => handleChange("messageStyle", "bubble")}
-          >
-            Bubble
-          </button>
-          <button
-            type="button"
-            className={`px-4 py-2 rounded ${
-              formData.messageStyle === "straight" ? "bg-blue-600 text-white" : "bg-gray-200"
-            }`}
-            onClick={() => handleChange("messageStyle", "straight")}
-          >
-            Straight
-          </button>
-        </div>
-      </div>
+      {/* Message Style Selection (Using CustomField) */}
+      <CustomField
+        label="Message Style"
+        name="messageStyle"
+        type="select"
+        value={formData.messageStyle}
+        onChange={(e) => handleChange("messageStyle", e.target.value)}
+        options={messageStyles}
+        tooltipText="Choose how messages will appear in the chat."
+      />
 
-      {/* Logo Upload */}
-      <div className="mb-4">
-        <label className="block text-lg font-semibold">Upload Logo</label>
-        <input type="file" accept="image/*" onChange={handleLogoUpload} />
-        {formData.logo && <img src={formData.logo} alt="Preview" className="mt-2 w-24 h-24" />}
-      </div>
+      {/* Logo Upload (Using Custom Component) */}
+      <FileUploadButton onChange={(value) => handleChange("logo", value)} />
 
       {/* Save Button */}
       <button

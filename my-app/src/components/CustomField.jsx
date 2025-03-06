@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 
 
-// eslint-disable-next-line react/prop-types
+
 function CustomField({ label, name, type, value, options, placeholder, onChange, tooltipText }) {
   const [showTooltip, setShowTooltip] = useState(false);
 
