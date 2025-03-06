@@ -1,10 +1,11 @@
 import { useState } from "react";
 import CustomField from "./CustomField";
 import DataSourceInput from "./DataSourceInput";
-import { useNavigate } from "react-router-dom"; // ✅ Add this if using React Router
+import { useNavigate } from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 function CustomisationForm({ onSubmit }) {
-  const navigate = useNavigate(); // ✅ Use this if navigation is needed
+  const navigate = useNavigate(); 
 
   const [formData, setFormData] = useState(() => {
     const savedData = localStorage.getItem("customisationFormData");
@@ -36,12 +37,11 @@ function CustomisationForm({ onSubmit }) {
     e.preventDefault();
     console.log("AI Configuration:", formData);
     onSubmit(formData);
-    alert("AI settings saved!");
   };
 
   const handleNext = () => {
-    handleFormSubmit(new Event("submit")); // ✅ Save form data before moving to the next step
-    navigate("/uicustomisation"); // ✅ Change "/next-step" to the actual next page route
+    handleFormSubmit(new Event("submit")); 
+    navigate("/uicustomisation");
   };
 
   return (
@@ -118,7 +118,7 @@ function CustomisationForm({ onSubmit }) {
 
       <DataSourceInput
         dataSources={formData.dataSources}
-        setDataSources={handleDataSourcesChange} // ✅ Fix: Save dataSources correctly
+        setDataSources={handleDataSourcesChange}
       />
 
       <button type="submit" className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700">

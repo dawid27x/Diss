@@ -2,11 +2,11 @@ import { useState } from "react";
 import { FaInfoCircle, FaTimes } from "react-icons/fa";
 
 function DataSourceInput({ dataSources, setDataSources }) {
-  const [currentSource, setCurrentSource] = useState(""); // Stores input value
-  const [errorMessage, setErrorMessage] = useState(""); // Stores validation error
-  const [showTooltip, setShowTooltip] = useState(false); // Manages tooltip visibility
+  const [currentSource, setCurrentSource] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState(""); 
+  const [showTooltip, setShowTooltip] = useState(false); 
 
-  // 🔹 URL Validation Function
+
   const isValidURL = (url) => {
     try {
       new URL(url); // Checks if the input is a valid URL
@@ -16,7 +16,6 @@ function DataSourceInput({ dataSources, setDataSources }) {
     }
   };
 
-  // 🔹 Add a Source Link
   const addSource = () => {
     if (!currentSource.trim()) {
       setErrorMessage("Please enter a link.");
@@ -33,7 +32,6 @@ function DataSourceInput({ dataSources, setDataSources }) {
       return;
     }
 
-    // If valid, add the link and reset input & error
     setDataSources([...dataSources, currentSource]);
     setCurrentSource("");
     setErrorMessage("");
@@ -55,14 +53,12 @@ function DataSourceInput({ dataSources, setDataSources }) {
         />
       </label>
 
-      {/* Tooltip */}
       {showTooltip && (
         <p className="text-sm text-gray-600 mt-1">
           Enter trusted sources (e.g., https://reuters.com). Click "Add" after entering each link.
         </p>
       )}
 
-      {/* Input & Add Button */}
       <div className="flex mt-2">
         <input
           type="text"
@@ -80,10 +76,8 @@ function DataSourceInput({ dataSources, setDataSources }) {
         </button>
       </div>
 
-      {/* Show error message */}
       {errorMessage && <p className="text-sm text-red-500 mt-2">{errorMessage}</p>}
 
-      {/* Display Entered Sources */}
       <div className="mt-3 flex flex-wrap gap-2">
         {dataSources.map((source, index) => (
           <div key={index} className="flex items-center bg-gray-200 px-3 py-1 rounded-lg">

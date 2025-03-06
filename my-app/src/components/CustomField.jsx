@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 
+
+// eslint-disable-next-line react/prop-types
 function CustomField({ label, name, type, value, options, placeholder, onChange, tooltipText }) {
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -18,7 +20,6 @@ function CustomField({ label, name, type, value, options, placeholder, onChange,
 
       {showTooltip && <p className="text-sm text-gray-600 mt-1">{tooltipText}</p>}
 
-      {/* Render input or select field based on type */}
       {type === "select" ? (
         <select name={name} value={value} onChange={onChange} className="w-full p-2 border rounded-lg">
           <option value="" disabled selected>

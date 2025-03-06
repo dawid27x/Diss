@@ -1,8 +1,10 @@
 import CustomisationForm from "../components/CustomisationForm";
+import configurePrompt from "../utils/configurePrompt";
 
 function Customisation() {
   const handleFormSubmit = (formData) => {
     console.log("Final AI Config:", formData);
+    console.log("Current Prompt:", configurePrompt(formData));
   };
 
   return (
