@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 function Introduction() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-900 p-6">
+      <Link
+        to="/"
+        className="absolute top-6 left-6 px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-800 transition"
+      >
+        ← Back
+      </Link>
       <h1 className="text-4xl font-bold mb-6">Introduction</h1>
       <p className="text-lg text-center max-w-xl">
         This application will guide you through a process that allows one to create a bespoke ChatGPT Wrapper.
@@ -14,12 +20,6 @@ function Introduction() {
         This is a text for something in the future
       </p>
       <div className="flex space-x-6 mt-6">
-        <Link
-          to="/"
-          className="px-6 py-3 bg-gray-800 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-gray-900 transition"
-        >
-          Back to Home
-        </Link>
         <Link
           to="/customisation"
           className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"

@@ -7,6 +7,8 @@ import ColorPickerButton from "./ColorPickerButton";
 const fonts = ["Arial", "Courier New", "Georgia", "Times New Roman", "Verdana"];
 const messageStyles = ["Bubble", "Straight"];
 
+
+// eslint-disable-next-line react/prop-types
 const UICustomisationForm = ({ onSave }) => {
   const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ const UICustomisationForm = ({ onSave }) => {
 
   const handleNext = () => {
     handleFormSubmit(new Event("submit"));
-    navigate("/chatbot"); // Adjust if needed
+    navigate("/advancedsettings"); 
   };
 
   return (

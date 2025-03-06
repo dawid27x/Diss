@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Introduction from "./pages/Introduction";
 import Customisation from "./pages/Customisation";
 import UICustomisation from "./pages/UICustomisation";
+import AdvancedSettings from "./pages/AdvancedSettings";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/introduction" element={<Introduction />} />
       <Route path="/customisation" element={<Customisation />} />
       <Route path="/uicustomisation" element={<UICustomisation/>}></Route>
+      <Route path="/advancedsettings" element={<AdvancedSettings/>}></Route>
     </Routes>
   );
 }
