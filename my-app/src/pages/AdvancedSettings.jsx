@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import AdvancedSettingsForm from "../components/AdvancedSettingsForm";
 
 
 function AdvancedSettings() {
@@ -12,7 +13,7 @@ function AdvancedSettings() {
       </Link>
 
       <h1 className="text-4xl font-bold mb-6">Advanced Settings</h1>
-        <p>This will allow the user to set the temperate of the model, etc</p>
+        <AdvancedSettingsForm/>
     </div>
   );
 }

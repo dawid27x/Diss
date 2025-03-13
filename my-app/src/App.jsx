@@ -4,6 +4,7 @@ import Introduction from "./pages/Introduction";
 import Customisation from "./pages/Customisation";
 import UICustomisation from "./pages/UICustomisation";
 import AdvancedSettings from "./pages/AdvancedSettings";
+import Chatbot from "./pages/Chatbot";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/customisation" element={<Customisation />} />
       <Route path="/uicustomisation" element={<UICustomisation/>}></Route>
       <Route path="/advancedsettings" element={<AdvancedSettings/>}></Route>
+      <Route path="/chatbot" element={<Chatbot/>}></Route>
     </Routes>
   );
 }
