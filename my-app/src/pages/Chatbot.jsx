@@ -15,7 +15,7 @@ const Chatbot = () => {
   const PromptSettings = JSON.parse(localStorage.getItem("customisationFormData")) || {};
   
   const { backgroundColor, textColor, logo, messageStyle, buttons } = UISettings;
-  const { aiName, dataSources, format, level, personality, role, structure, tone} = PromptSettings;
+  const { aiName, dataSources, level, personality, role, structure, tone, additionalinfo, wordcount, refrain} = PromptSettings;
   const { effort, store, temperature } = AdvancedSettings;
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -26,31 +26,35 @@ const Chatbot = () => {
   };
 
   const infoMessage = `
-    You have successfully created your own AI-powered chatbot, customized to your preferences! 
+  You have successfully created your own AI-powered chatbot, customized to your preferences! 
 
-    🖌 User Interface
-    - Background color: ${backgroundColor}  
-    - Text color: ${textColor}  
-    - Message Style: ${messageStyle}  
-    - ${logo ? "A custom logo is included." : "No logo uploaded."}
+  🤖 AI Personality & Role  
+  - AI Name: ${aiName || "Your Chatbot"}  
+  - Role: ${role}  
+  - Personality: ${personality}  
+  - Response Format: ${PromptSettings.format}  
+  - Response Structure: ${structure}  
+  - Response Tone: ${tone}  
+  - Knowledge Level: ${level}  
+  - Data Sources: ${dataSources?.join(", ") || "None specified"}
 
-    🤖 AI Personality & Role  
-    - AI Name: ${aiName || "Your Chatbot"}  
-    - Role: ${role}  
-    - Personality: ${personality}  
-    - Response Format: ${format}  
-    - Response Structure: ${structure}  
-    - Response Tone: ${tone}  
-    - Knowledge Level: ${level}  
-    - Data Sources: ${dataSources?.join(", ") || "None specified"}
+  📌 Additional Instructions
+  - ${additionalinfo || "No additional information provided."}
 
-    ⚙️ Advanced Settings  
-    - Reasoning Effort: ${effort}  
-    - Response Temperature: ${temperature}  
-    - ${store ? "Responses are stored for retrieval." : "Responses are not stored."}
+  ❌ Words/Phrases to Avoid
+  - ${refrain || "No restrictions specified."}
 
-    Your chatbot is now fully functional and tailored to your exact specifications. 🎉
-    `;
+  ✍️ Response Settings  
+  - Word Count: ${wordcount}  
+
+  ⚙️ Advanced Settings  
+  - Reasoning Effort: ${effort}  
+  - Response Temperature: ${temperature}  
+  - ${store ? "Responses are stored for retrieval." : "Responses are not stored."}
+
+  Your chatbot is now fully functional and tailored to your exact specifications. 🎉
+`;
+
 
     const handleExportPrompt = () => {
       if (navigator.clipboard && window.isSecureContext) {
@@ -114,7 +118,7 @@ const Chatbot = () => {
 
       {/* Header */}
       <div className="p-4 text-center text-3xl font-bold flex items-center justify-center border-b">
-        {logo && <img src={logo} alt="Logo" className="h-20 mr-4 w-20" />}
+        {logo && <img src={logo} alt="Logo" className="h-20 mr-4 w-20 rounded-md" />}
         <span>{aiName || "Chatbot"} - {role || "Personal Assistant"}</span>
       </div>
       

@@ -8,28 +8,35 @@ const MessageBubble = ({ text, sender }) => {
   const isUser = sender === "user";
   const [displayedText, setDisplayedText] = useState(isUser ? text : "");
 
+  // Retrieve logo from uiCustomisationSettings in localStorage
+  const uiSettings = JSON.parse(localStorage.getItem("uiCustomisationSettings")) || {};
+  const logo = uiSettings.logo || null;
+
   useEffect(() => {
-    if (!isUser) { // Only animate bot messages
-      setDisplayedText(""); // Reset before animation starts
+    if (!isUser) { 
+      setDisplayedText(""); 
       let index = 0;
       const interval = setInterval(() => {
         if (index < text.length) {
-          setDisplayedText(text.slice(0, index + 1)); // Correct slicing for animation
+          setDisplayedText(text.slice(0, index + 1)); 
           index++;
         } else {
           clearInterval(interval);
         }
-      }, 15); // Adjust speed if needed
+      }, 15); 
 
       return () => clearInterval(interval);
     }
-  }, [text, isUser]); // Runs only when `text` changes
+  }, [text, isUser]); 
 
   return (
-    <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
+    <div className={`flex items-start ${isUser ? "justify-end" : "justify-start"}`}>
+      {!isUser && logo && (
+        <img src={logo} alt="Chatbot Logo" className="w-9 h-9 rounded-full mr-2 border-2 border-black" />
+      )}
       <div
         className={`p-3 rounded-lg max-w-lg w-auto break-words ${
-          isUser ? "bg-blue-600 text-white" : "text-black"
+          isUser ? "bg-blue-600 text-white" : "text-black bg-gray-200"
         }`}
       >
         <ReactMarkdown
@@ -42,6 +49,11 @@ const MessageBubble = ({ text, sender }) => {
             h2: ({ children }) => <h2 className="text-2xl font-semibold">{children}</h2>,
             h3: ({ children }) => <h3 className="text-xl font-medium">{children}</h3>,
             strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+            ul: ({ children }) => <ul className="list-disc pl-5">{children}</ul>,
+            ol: ({ children }) => <ol className="list-decimal pl-5">{children}</ol>,
+            li: ({ children }) => <li className="mb-1">{children}</li>,
+            
+
           }}
         />
       </div>

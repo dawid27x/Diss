@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CustomField from "./CustomField";
 import { useNavigate } from "react-router-dom";
-
 
 const effortOptions = ["low", "medium", "high"];
 
@@ -17,23 +16,29 @@ const AdvancedSettingsForm = ({ onSave }) => {
         };
   });
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("advancedSettings")) {
+      localStorage.setItem("advancedSettings", JSON.stringify(formData));
+    }
+  }, []);
+
   const handleChange = (key, value) => {
     const updatedData = { ...formData, [key]: value };
     setFormData(updatedData);
     localStorage.setItem("advancedSettings", JSON.stringify(updatedData));
   };
 
-  const navigate = useNavigate(); 
-
-
   const handleNext = () => {
-    handleFormSubmit(new Event("submit")); 
+    localStorage.setItem("advancedSettings", JSON.stringify(formData)); // ✅ Save before navigating
     navigate("/chatbot");
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Advanced Settings:", formData);
+    localStorage.setItem("advancedSettings", JSON.stringify(formData)); // ✅ Ensure save on submit
     if (onSave) onSave(formData);
   };
 
