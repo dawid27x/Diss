@@ -16,7 +16,9 @@ function CustomisationForm({ onSubmit }) {
       personality: "",
       tone: "",
       structure: "",
-      format: "",
+      wordcount: 0,
+      additionalinfo: "",
+      refraine: "",
       dataSources: [],
     };
   });
@@ -82,7 +84,7 @@ function CustomisationForm({ onSubmit }) {
         type="select"
         value={formData.personality}
         onChange={handleChange}
-        options={["Optimistic", "Analytical", "Humorous", "Serious"]}
+        options={["Friendly", "Professional", "Humorous", "Direct", "Creative"]}
         tooltipText="Choose the AI's personality style."
       />
 
@@ -92,7 +94,7 @@ function CustomisationForm({ onSubmit }) {
         type="select"
         value={formData.tone}
         onChange={handleChange}
-        options={["Formal", "Casual", "Friendly", "Authoritative", "Empathetic"]}
+        options={["Casual", "Formal", "Neutral", "Encouraging", "Direct"]}
         tooltipText="Set the communication style."
       />
 
@@ -105,15 +107,31 @@ function CustomisationForm({ onSubmit }) {
         onChange={handleChange}
         tooltipText="Describe how AI responses should be structured."
       />
-
       <CustomField
-        label="Response Format"
-        name="format"
-        type="select"
-        value={formData.format}
+        label="Word Count"
+        name="wordcount"
+        type="number"
+        value={formData.wordcount}
         onChange={handleChange}
-        options={["Paragraphs", "Bullet Points", "Tables"]}
-        tooltipText="Choose how responses are formatted."
+        tooltipText="Set the approximate amount of words in a response."
+      />
+      <CustomField
+        label="Additional Information"
+        name="additionalinfo"
+        type="text"
+        value={formData.additionalinfo}
+        placeholder="Any Additional Information"
+        onChange={handleChange}
+        tooltipText="Provide any extra details that will help shape the chatbot’s responses. This could include specific instructions, domain knowledge, or contextual preferences."
+      />
+      <CustomField
+        label="Refrain"
+        name="refrain"
+        type="text"
+        value={formData.refrain}
+        placeholder="What the chatbot should avoid"
+        onChange={handleChange}
+        tooltipText="Specify what the model should avoid in its responses, e.g using overcomplicated vocabulary."
       />
 
       <DataSourceInput
