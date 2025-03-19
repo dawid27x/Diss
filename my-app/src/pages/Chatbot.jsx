@@ -4,8 +4,10 @@ import ChatMessages from "../components/ChatMessages";
 import ChatInput from "../components/ChatInput";
 import { Link } from "react-router-dom";
 import { sendToOpenAI } from "../utils/openAIService";
+import configurePrompt from "../utils/configurePrompt";
 
 const Chatbot = () => {
+  const [exported, setExported] = useState(false);
   const [messages, setMessages] = useState([]);
 
   const UISettings = JSON.parse(localStorage.getItem("uiCustomisationSettings")) || {};
@@ -50,6 +52,19 @@ const Chatbot = () => {
     Your chatbot is now fully functional and tailored to your exact specifications. 🎉
     `;
 
+    const handleExportPrompt = () => {
+      if (navigator.clipboard && window.isSecureContext) {
+        const prompt = configurePrompt(PromptSettings);
+        navigator.clipboard.writeText(prompt).then(() => {
+          setExported(true);
+          setTimeout(() => setExported(false), 3000); // Reset after 3 seconds
+        });
+      } else {
+        console.error("Clipboard API not supported.");
+      }
+    };
+    
+
 
     const handleSendMessage = async (text) => {
       if (!text.trim()) return;
@@ -81,17 +96,28 @@ const Chatbot = () => {
         ← Back
       </Link>
       {/* Info Button */}
+      <div className="absolute top-6 right-6 flex space-x-4">
       <button
-        onClick={() => setIsPopupOpen(true)}
-        className="absolute top-6 right-6 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
+        onClick={handleExportPrompt}
+        className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition"
       >
-        Info
+        {exported ? "Exported!" : "Export Prompt"}
       </button>
+
+        <button
+          onClick={() => setIsPopupOpen(true)}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
+        >
+          Info
+        </button>
+      </div>
+
       {/* Header */}
       <div className="p-4 text-center text-3xl font-bold flex items-center justify-center border-b">
         {logo && <img src={logo} alt="Logo" className="h-20 mr-4 w-20" />}
         <span>{aiName || "Chatbot"} - {role || "Personal Assistant"}</span>
       </div>
+      
       
       {/* Chat Messages */}
       <ChatMessages messages={messages} />
