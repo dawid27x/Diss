@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import CustomField from "./CustomField";
 import { useNavigate } from "react-router-dom";
 
-const effortOptions = ["low", "medium", "high"];
 
 const AdvancedSettingsForm = ({ onSave }) => {
   const [formData, setFormData] = useState(() => {
@@ -10,9 +9,9 @@ const AdvancedSettingsForm = ({ onSave }) => {
     return savedData
       ? JSON.parse(savedData)
       : {
-          effort: "medium",
           temperature: 1,
-          store: true,
+          presence_penalty: 0,
+          frequency_penatly: 0,
         };
   });
 
@@ -31,7 +30,7 @@ const AdvancedSettingsForm = ({ onSave }) => {
   };
 
   const handleNext = () => {
-    localStorage.setItem("advancedSettings", JSON.stringify(formData)); // ✅ Save before navigating
+    localStorage.setItem("advancedSettings", JSON.stringify(formData)); 
     navigate("/chatbot");
   };
 
@@ -45,19 +44,6 @@ const AdvancedSettingsForm = ({ onSave }) => {
   return (
     <form onSubmit={handleFormSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
       <h2 className="text-2xl font-bold mb-4">Advanced Settings</h2>
-
-      {/* Effort Selection */}
-      <CustomField
-        label="Effort"
-        name="effort"
-        type="select"
-        value={formData.effort}
-        onChange={(e) => handleChange("effort", e.target.value)}
-        options={effortOptions}
-        tooltipText="Constrains effort on reasoning for reasoning models. Currently supported values are low, medium, and high."
-      />
-
-      {/* Temperature Input */}
       <CustomField
         label="Temperature"
         name="temperature"
@@ -67,25 +53,29 @@ const AdvancedSettingsForm = ({ onSave }) => {
         placeholder="Enter a value between 0 and 2"
         tooltipText="What sampling temperature to use, between 0 and 2. Higher values make the output more random, while lower values make it more deterministic."
       />
-
-      {/* Store Response Checkbox */}
-      <div className="flex items-center mb-4">
-        <input
-          type="checkbox"
-          name="store"
-          checked={formData.store}
-          onChange={(e) => handleChange("store", e.target.checked)}
-          className="mr-2"
-        />
-        <label className="text-lg font-semibold">Store Response</label>
-      </div>
-
-      {/* Save Button */}
+      <CustomField
+        label="Presence Penalty"
+        name="presence_penatly"
+        type="number"
+        value={formData.presence_penalty}
+        onChange={(e) => handleChange("presence_penalty", parseFloat(e.target.value))}
+        placeholder="Enter a value between -2 and 2"
+        tooltipText="Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."
+      />
+      <CustomField
+        label="Frequency Penalty"
+        name="frequency_penatly"
+        type="number"
+        value={formData.frequency_penalty}
+        onChange={(e) => handleChange("frequency_penalty", parseFloat(e.target.value))}
+        placeholder="Enter a value between -2 and 2"
+        tooltipText="Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."
+      />
       <button
         type="submit"
         className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700"
       >
-        Save Settings
+        Save UI Settings
       </button>
       <button type="button" onClick={handleNext} className="w-full py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 mt-3">
         Next

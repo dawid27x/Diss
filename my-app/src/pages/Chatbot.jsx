@@ -14,9 +14,9 @@ const Chatbot = () => {
   const AdvancedSettings = JSON.parse(localStorage.getItem("advancedSettings")) || {};
   const PromptSettings = JSON.parse(localStorage.getItem("customisationFormData")) || {};
   
-  const { backgroundColor, textColor, logo, messageStyle, buttons } = UISettings;
+  const { backgroundColor, textColor, logo, buttons } = UISettings;
   const { aiName, dataSources, level, personality, role, structure, tone, additionalinfo, wordcount, refrain} = PromptSettings;
-  const { effort, store, temperature } = AdvancedSettings;
+  const { frequency_penatly, presence_penalty, temperature } = AdvancedSettings;
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -48,9 +48,9 @@ const Chatbot = () => {
   - Word Count: ${wordcount}  
 
   ⚙️ Advanced Settings  
-  - Reasoning Effort: ${effort}  
+  - Frequency Penalty: ${frequency_penatly}
+  - Presence Penalty: ${presence_penalty}  
   - Response Temperature: ${temperature}  
-  - ${store ? "Responses are stored for retrieval." : "Responses are not stored."}
 
   Your chatbot is now fully functional and tailored to your exact specifications. 🎉
 `;
