@@ -10,6 +10,7 @@ const openai = new OpenAI({
 export const sendToOpenAI = async (userInput, chatHistory = []) => {
     try {
         const storedData = localStorage.getItem("customisationFormData");
+        const advancedSettings = localStorage.getItem("advancedSettings")
         if (!storedData) {
             throw new Error("No saved form data found.");
         }
@@ -24,6 +25,9 @@ export const sendToOpenAI = async (userInput, chatHistory = []) => {
                 ...chatHistory, // Pass conversation history
                 { role: "user", content: userInput }
             ],
+            temperature: advancedSettings.temperature ?? 1,
+            presence_penalty: advancedSettings.presence_penalty ?? 0,
+            frequency_penalty: advancedSettings.frequency_penalty ?? 0,
         });
 
         return completion.choices[0].message.content;

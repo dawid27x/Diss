@@ -44,6 +44,7 @@ const AdvancedSettingsForm = ({ onSave }) => {
   return (
     <form onSubmit={handleFormSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
       <h2 className="text-2xl font-bold mb-4">Advanced Settings</h2>
+      <p>These settings allow you to fine-tune the model’s behavior, but they are entirely optional. Please press the tooltip icon for explanations of the features. If you’re unsure, the default settings will work well for most use cases.</p><br/>
       <CustomField
         label="Temperature"
         name="temperature"

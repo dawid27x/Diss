@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import ChatMessages from "../components/ChatMessages";
 import ChatInput from "../components/ChatInput";
@@ -32,7 +31,6 @@ const Chatbot = () => {
   - AI Name: ${aiName || "Your Chatbot"}  
   - Role: ${role}  
   - Personality: ${personality}  
-  - Response Format: ${PromptSettings.format}  
   - Response Structure: ${structure}  
   - Response Tone: ${tone}  
   - Knowledge Level: ${level}  
@@ -93,12 +91,20 @@ const Chatbot = () => {
   return (
     
     <div className="flex flex-col h-screen" style={{ backgroundColor, color: textColor }}>
-        <Link
-        to="/advancedSettings"
-        className="absolute top-6 left-6 px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-800 transition"
-      >
-        ← Back
-      </Link>
+        <div className="absolute top-6 left-6">
+  <details className="relative">
+    <summary className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md cursor-pointer hover:bg-gray-800">
+      Back
+    </summary>
+    <div className="absolute mt-2 w-48 bg-white border rounded shadow-lg text-black z-10">
+      <Link to="/advancedSettings" className="block px-4 py-2 hover:bg-gray-100">Advanced Settings</Link>
+      <Link to="/customisation" className="block px-4 py-2 hover:bg-gray-100">Model Customisation</Link>
+      <Link to="/uicustomisation" className="block px-4 py-2 hover:bg-gray-100">UI Customisation</Link>
+    </div>
+  </details>
+</div>
+
+
       {/* Info Button */}
       <div className="absolute top-6 right-6 flex space-x-4">
       <button
