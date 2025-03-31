@@ -15,9 +15,9 @@ const Chatbot = () => {
   
   const { backgroundColor, textColor, logo, buttons } = UISettings;
   const { aiName, dataSources, level, personality, role, structure, tone, additionalinfo, wordcount, refrain} = PromptSettings;
-  const { frequency_penatly, presence_penalty, temperature } = AdvancedSettings;
+  const { frequency_penalty, presence_penalty, temperature } = AdvancedSettings;
 
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
 
   const handleButtonClick = async (task) => {
     if (!task.trim()) return;
@@ -46,7 +46,7 @@ const Chatbot = () => {
   - Word Count: ${wordcount}  
 
   ⚙️ Advanced Settings  
-  - Frequency Penalty: ${frequency_penatly}
+  - Frequency Penalty: ${frequency_penalty}
   - Presence Penalty: ${presence_penalty}  
   - Response Temperature: ${temperature}  
 
@@ -59,7 +59,7 @@ const Chatbot = () => {
         const prompt = configurePrompt(PromptSettings);
         navigator.clipboard.writeText(prompt).then(() => {
           setExported(true);
-          setTimeout(() => setExported(false), 3000); // Reset after 3 seconds
+          setTimeout(() => setExported(false), 3000);
         });
       } else {
         console.error("Clipboard API not supported.");
@@ -89,24 +89,26 @@ const Chatbot = () => {
     
 
   return (
-    
+    <>
     <div className="flex flex-col h-screen" style={{ backgroundColor, color: textColor }}>
-        <div className="absolute top-6 left-6">
-  <details className="relative">
-    <summary className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md cursor-pointer hover:bg-gray-800">
-      Back
-    </summary>
-    <div className="absolute mt-2 w-48 bg-white border rounded shadow-lg text-black z-10">
-      <Link to="/advancedSettings" className="block px-4 py-2 hover:bg-gray-100">Advanced Settings</Link>
-      <Link to="/customisation" className="block px-4 py-2 hover:bg-gray-100">Model Customisation</Link>
-      <Link to="/uicustomisation" className="block px-4 py-2 hover:bg-gray-100">UI Customisation</Link>
+      <div className="absolute top-6 left-6">
+      <details className="relative">
+
+      <summary className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md cursor-pointer hover:bg-gray-800">
+      Preferences
+      </summary>
+
+      <div className="absolute mt-2 w-48 bg-white border rounded shadow-lg text-black z-10">
+        <Link to="/advancedSettings" className="block px-4 py-2 hover:bg-gray-100">Advanced Settings</Link>
+        <Link to="/customisation" className="block px-4 py-2 hover:bg-gray-100">Model Customisation</Link>
+        <Link to="/uicustomisation" className="block px-4 py-2 hover:bg-gray-100">UI Customisation</Link>
+      </div>
+
+    </details>
     </div>
-  </details>
-</div>
 
-
-      {/* Info Button */}
       <div className="absolute top-6 right-6 flex space-x-4">
+
       <button
         onClick={handleExportPrompt}
         className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition"
@@ -114,25 +116,24 @@ const Chatbot = () => {
         {exported ? "Exported!" : "Export Prompt"}
       </button>
 
-        <button
-          onClick={() => setIsPopupOpen(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
-        >
-          Info
-        </button>
-      </div>
+      <button
+        onClick={() => setIsPopupOpen(true)}
+        className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
+      >
+        Info
+      </button>
 
-      {/* Header */}
-      <div className="p-4 text-center text-3xl font-bold flex items-center justify-center border-b">
+    </div>
+
+    <header className="p-6 text-center text-3xl font-bold flex items-center justify-center border-b">
         {logo && <img src={logo} alt="Logo" className="h-20 mr-4 w-20 rounded-md" />}
-        <span>{aiName || "Chatbot"} - {role || "Personal Assistant"}</span>
-      </div>
+        <h1>{aiName || "Chatbot"} - {role || "Personal Assistant"}</h1>
+    </header>
+
       
       
-      {/* Chat Messages */}
       <ChatMessages messages={messages} />
       
-      {/* Action Buttons Positioned Above Input Box */}
       {buttons.length > 0 && (
         <div className="p-4 flex justify-center space-x-4 border-t">
           {buttons.map((button, index) => (
@@ -151,22 +152,22 @@ const Chatbot = () => {
       <ChatInput buttons={buttons} onSendMessage={handleSendMessage} />
 
       {isPopupOpen && (
-        <div className="fixed inset-0 bg-blue-950 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
+        <div className="fixed inset-0 bg-gray-300 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-160 text-center">
             <h2 className="text-xl font-bold mb-4">Your Chatbot</h2>
             <p className="text-gray-700 whitespace-pre-line">{infoMessage}</p>
             <button
               onClick={() => setIsPopupOpen(false)}
               className="mt-4 px-4 py-2 bg-lime-700 text-white rounded-lg hover:bg-lime-900"
             >
-              Close
+              Begin!
             </button>
           </div>
         </div>
       )}
 
     </div>
-    
+    </>
   );
 };
 

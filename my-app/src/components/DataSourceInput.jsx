@@ -45,8 +45,8 @@ function DataSourceInput({ dataSources, setDataSources }) {
 
   return (
     <div className="mb-4">
-      <label className="flex items-center text-lg font-semibold">
-        Source of Data
+      <label htmlFor="dataSourceInput" className="flex items-center text-lg font-semibold">
+      Source of Data
         <FaInfoCircle
           className="ml-2 text-gray-500 cursor-pointer"
           onClick={() => setShowTooltip(!showTooltip)}
@@ -61,6 +61,7 @@ function DataSourceInput({ dataSources, setDataSources }) {
 
       <div className="flex mt-2">
         <input
+          id="dataSourceInput"
           type="text"
           value={currentSource}
           onChange={(e) => setCurrentSource(e.target.value)}

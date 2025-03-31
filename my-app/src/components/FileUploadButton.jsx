@@ -25,7 +25,7 @@ const FileUploadButton = ({ onChange }) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setLogo(reader.result);
-        updateLocalStorage(reader.result); // ✅ Save inside `uiCustomisationSettings`
+        updateLocalStorage(reader.result); 
         onChange(reader.result);
       };
       reader.readAsDataURL(file);
@@ -34,19 +34,37 @@ const FileUploadButton = ({ onChange }) => {
 
   const handleRemoveLogo = () => {
     setLogo(null);
-    updateLocalStorage(null); // ✅ Remove from `uiCustomisationSettings`
+    updateLocalStorage(null); 
     onChange(null);
   };
 
   return (
     <div className="mb-4">
-      <label className="block text-lg font-semibold">Upload Logo</label>
+      <span className="block text-lg font-semibold">Upload Logo</span>
+
       {!logo && (
-        <input type="file" accept="image/*" onChange={handleLogoUpload} className="mt-2" />
+        <div className="mt-2">
+          <label
+            htmlFor="logo-upload"
+            className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-700 transition"
+          >
+            Upload Logo
+          </label>
+          <input
+            id="logo-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleLogoUpload}
+            className="hidden"
+          />
+        </div>
       )}
+
       {logo && (
         <div className="mt-3 flex flex-col items-start">
-          <img src={logo} alt="Logo Preview" className="w-24 h-24 object-contain border rounded-lg shadow-sm" />
+
+          <img src={logo} alt="Logo Preview" className="w-30 h-30 object-contain border rounded-lg shadow-sm" />
+
           <button
             type="button"
             onClick={handleRemoveLogo}

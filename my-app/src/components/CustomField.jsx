@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 
@@ -6,10 +5,11 @@ import { FaInfoCircle } from "react-icons/fa";
 
 function CustomField({ label, name, type, value, options, placeholder, onChange, tooltipText }) {
   const [showTooltip, setShowTooltip] = useState(false);
+  const inputId = `custom-field-${name}`;
 
   return (
     <div className="mb-4">
-      <label className="flex items-center text-lg font-semibold">
+      <label htmlFor={inputId} className="flex items-center text-lg font-semibold">
         {label}
         {tooltipText && (
           <FaInfoCircle
@@ -22,8 +22,14 @@ function CustomField({ label, name, type, value, options, placeholder, onChange,
       {showTooltip && <p className="text-sm text-gray-600 mt-1">{tooltipText}</p>}
 
       {type === "select" ? (
-        <select name={name} value={value} onChange={onChange} className="w-full p-2 border rounded-lg">
-          <option value="" disabled selected>
+        <select
+          id={inputId}
+          name={name}
+          value={value}
+          onChange={onChange}
+          className="w-full p-2 border rounded-lg"
+        >
+          <option value="" disabled>
             {placeholder || "Select an option"}
           </option>
           {options.map((option) => (
@@ -34,6 +40,7 @@ function CustomField({ label, name, type, value, options, placeholder, onChange,
         </select>
       ) : (
         <input
+          id={inputId}
           type={type}
           name={name}
           value={value}
@@ -45,5 +52,6 @@ function CustomField({ label, name, type, value, options, placeholder, onChange,
     </div>
   );
 }
+
 
 export default CustomField;

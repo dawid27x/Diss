@@ -3,7 +3,6 @@ import CustomField from "./CustomField";
 import DataSourceInput from "./DataSourceInput";
 import { useNavigate } from "react-router-dom";
 
-// eslint-disable-next-line react/prop-types
 function CustomisationForm({ onSubmit }) {
   const navigate = useNavigate(); 
 
@@ -105,7 +104,7 @@ function CustomisationForm({ onSubmit }) {
         value={formData.structure}
         placeholder="Describe response structure"
         onChange={handleChange}
-        tooltipText="Describe how AI responses should be structured."
+        tooltipText="Describe how AI responses should be structured. E.g Two paragraphs followed by a summary. Use Bullet points when possible."
       />
       <CustomField
         label="Word Count"
@@ -113,7 +112,7 @@ function CustomisationForm({ onSubmit }) {
         type="number"
         value={formData.wordcount}
         onChange={handleChange}
-        tooltipText="Set the approximate amount of words in a response."
+        tooltipText="Set the approximate amount of words in a response, on average."
       />
       <CustomField
         label="Additional Information"
@@ -139,9 +138,9 @@ function CustomisationForm({ onSubmit }) {
         setDataSources={handleDataSourcesChange}
       />
 
-      <button type="submit" className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700">
+      {/* <button type="submit" className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700">
         Save AI Settings
-      </button>
+      </button> */}
       <button type="button" onClick={handleNext} className="w-full py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 mt-3">
         Next
       </button>

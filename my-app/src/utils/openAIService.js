@@ -10,10 +10,11 @@ const openai = new OpenAI({
 export const sendToOpenAI = async (userInput, chatHistory = []) => {
     try {
         const storedData = localStorage.getItem("customisationFormData");
-        const advancedSettings = localStorage.getItem("advancedSettings")
+        const advancedSettings = JSON.parse(localStorage.getItem("advancedSettings"));
         if (!storedData) {
             throw new Error("No saved form data found.");
         }
+        console.log("here");
 
         const formData = JSON.parse(storedData);
         const systemPrompt = configurePrompt(formData);

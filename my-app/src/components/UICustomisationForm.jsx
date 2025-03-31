@@ -99,13 +99,6 @@ const UICustomisationForm = ({ onSave }) => {
       <br/>
 
       <button
-        type="submit"
-        className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700"
-      >
-        Save UI Settings
-      </button>
-
-      <button
         type="button"
         onClick={handleNext}
         className="w-full py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 mt-3"

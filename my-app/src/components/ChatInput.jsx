@@ -16,7 +16,6 @@ const ChatInput = ({ onSendMessage, buttons = [] }) => {
 
   return (
     <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-white flex flex-col items-center">
-      {/* Action Buttons */}
       {buttons.length > 0 && (
         <div className="flex justify-center space-x-4 mb-2">
           {buttons.map((button, index) => (
@@ -32,10 +31,13 @@ const ChatInput = ({ onSendMessage, buttons = [] }) => {
           ))}
         </div>
       )}
-      
-      {/* Input Field */}
+
       <div className="w-full flex items-center">
+        <label htmlFor="chat-input" className="sr-only">
+          Chat message input
+        </label>
         <input
+          id="chat-input"
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
