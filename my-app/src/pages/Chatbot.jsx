@@ -134,7 +134,7 @@ const Chatbot = () => {
       
       <ChatMessages messages={messages} />
       
-      {buttons.length > 0 && (
+      {/* {buttons.length > 0 && (
         <div className="p-4 flex justify-center space-x-4 border-t">
           {buttons.map((button, index) => (
             button.name && button.task ? (
@@ -148,7 +148,7 @@ const Chatbot = () => {
             ) : null
           ))}
         </div>
-      )}
+      )} */}
       <ChatInput buttons={buttons} onSendMessage={handleSendMessage} />
 
       {isPopupOpen && (

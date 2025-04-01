@@ -15,9 +15,9 @@ const ChatInput = ({ onSendMessage, buttons = [] }) => {
   };
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-white flex flex-col items-center">
+    <div className="absolute bottom-4 left-2 right-2 p-4  flex flex-col items-center">
       {buttons.length > 0 && (
-        <div className="flex justify-center space-x-4 mb-2">
+        <div className="flex justify-center space-x-4 mb-4">
           {buttons.map((button, index) => (
             button.name && button.task ? (
               <button
@@ -42,9 +42,10 @@ const ChatInput = ({ onSendMessage, buttons = [] }) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type a message..."
-          className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 p-3 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
         />
+
         <button
           onClick={handleSend}
           className="ml-2 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"

@@ -22,6 +22,10 @@ function Introduction() {
         create custom buttons to improve usability. You will get the chance to interact with your specialised model 
         before getting the option to return back to the customisation phase to make amends.
       </p>
+      <br/>
+      <p className="text-lg text-center max-w-xl">
+        <strong>Disclaimer:</strong> The model contains information only up to August 2023
+      </p>
       <div className="flex space-x-6 mt-6">
         <Link
           to="/customisation"
