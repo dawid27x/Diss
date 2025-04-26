@@ -3,7 +3,8 @@ import { FaInfoCircle } from "react-icons/fa";
 
 
 
-function CustomField({ label, name, type, value, options, placeholder, onChange, tooltipText }) {
+
+function CustomField({ label, name, type, value, options, placeholder, onChange, tooltipText, error }) {
   const [showTooltip, setShowTooltip] = useState(false);
   const inputId = `custom-field-${name}`;
 
@@ -49,8 +50,12 @@ function CustomField({ label, name, type, value, options, placeholder, onChange,
           placeholder={placeholder}
         />
       )}
+      {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
+
     </div>
+
   );
+
 }
 
 
