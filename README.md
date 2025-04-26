@@ -21,10 +21,10 @@ Developed as part of a dissertation project at the University of Manchester, the
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/ai-customisation-tool.git
-cd ai-customisation-tool
+git clone https://github.com/dawid27x/Diss
+cd my-app
 npm install
-npm start
+npm run dev
 ```
 
 Open the application.
