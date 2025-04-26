@@ -15,8 +15,8 @@ Developed as part of a dissertation project at the University of Manchester, the
 ## Technology Stack
 
 - **Frontend:** React, TailwindCSS
-- **Hosting:** (e.g., AWS, Vercel)
-- **APIs:** (e.g., OpenAI API)
+- **Backend:** Javascript, NodeJS
+- **APIs:** OpenAI API
 
 ## Installation
 
