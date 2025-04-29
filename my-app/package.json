@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.3",
+    "openai": "^4.85.4",
     "katex": "^0.16.21",
     "react": "^18.3.1",
     "react-color": "^2.19.3",
